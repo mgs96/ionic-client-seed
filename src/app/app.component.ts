@@ -2,9 +2,11 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Angular2TokenService } from 'angular2-token-ionic3';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { LoginPage } from '../pages/login/login';
 
 @Component({
   templateUrl: 'app.html'
@@ -16,13 +18,21 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private _tokenService: Angular2TokenService) {
     this.initializeApp();
 
+    this._tokenService.init({
+      apiBase: 'https://rails-api-seed.herokuapp.com/',
+      oAuthBase: 'https://rails-api-seed.herokuapp.com/',
+      oAuthPaths: {
+        google: 'auth/google_oauth2'
+      },
+    });
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage }
+      { title: 'List', component: ListPage },
+      { title: 'Login', component: LoginPage }
     ];
 
   }

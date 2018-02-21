@@ -1,0 +1,17 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Oauth Login</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <form #accessResourceForm="ngForm" (ngSubmit)="onSubmit()">
+    <button ion-button block color="danger">
+        <ion-icon ios="logo-google" md="logo-google"></ion-icon>
+      </button>
+  </form>
+</ion-content>
