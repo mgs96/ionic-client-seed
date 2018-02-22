@@ -33,9 +33,9 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
   }
 
-  showToastWithCloseButton(name: string) {
+  showToastWithCloseButton(message: string) {
     const toast = this.toastCtrl.create({
-      message: `${name} has logged in`,
+      message: `${message}`,
       showCloseButton: true,
       closeButtonText: 'Ok'
     });
@@ -45,7 +45,7 @@ export class LoginPage {
   login() {
     this.googlePlus.login({})
       .then(res => {
-        console.log(res);
+        this.showToastWithCloseButton(JSON.stringify(res));
         this.displayName = res.displayName;
         this.email = res.email;
         this.familyName = res.familyName;
@@ -55,13 +55,13 @@ export class LoginPage {
 
         this.isLoggedIn = true;
       })
-      .catch(err => console.error(err));
+      .catch(err => this.showToastWithCloseButton(JSON.stringify(err)));
   }
 
   logout() {
     this.googlePlus.logout()
       .then(res => {
-        console.log(res);
+        this.showToastWithCloseButton(JSON.stringify(res));
         this.displayName = "";
         this.email = "";
         this.familyName = "";
@@ -71,6 +71,6 @@ export class LoginPage {
 
         this.isLoggedIn = false;
       })
-      .catch(err => console.error(err));
+      .catch(err => this.showToastWithCloseButton(JSON.stringify(err)));
   }
 }
