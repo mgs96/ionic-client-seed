@@ -10,20 +10,26 @@
 <ion-content padding>
 
   <div *ngIf="isLoggedIn; else loginTemplate">
-    <h1>Welcome, {{displayName}}!</h1>
-    <p>Email: {{email}}<br>
-      Family Name: {{familyName}}<br>
-      Given Name: {{givenName}}<br>
-      User ID: {{userId}}</p>
-    <p>
-      <ion-avatar item-left>
-        <img [src]="imageUrl">
-      </ion-avatar></p>
-    <p><button ion-button (click)="logout()">Logout From Google</button></p>
+    <h1>Welcome, {{ displayName }}!</h1>
+
+    <p><strong>Email:</strong> {{ email }}</p>
+    <p><strong>Family Name:</strong> {{ familyName }}</p>
+    <p><strong>Name:</strong> {{ givenName }}</p>
+    <p><strong>User ID:</strong> {{ userId }}</p>
+    <p><strong>idToken: </strong> {{ idToken }}</p>
+
+    <ion-avatar item-left>
+      <img [src]="imageUrl">
+    </ion-avatar>
+
+    <button ion-button block color="danger" (click)="logout()">Logout From Google</button>
   </div>
 
   <ng-template #loginTemplate>
     <h1>Please Login to see your Google Account Information</h1>
-    <p><button ion-button (click)="login()">Login With Google</button></p>
+    <button ion-button block color="danger" (click)="login()">
+      <ion-icon ios="logo-google" md="logo-google"></ion-icon>
+      Login With Google
+    </button>
   </ng-template>
 </ion-content>

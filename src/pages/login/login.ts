@@ -23,6 +23,7 @@ export class LoginPage {
   givenName: any;
   userId: any;
   imageUrl: any;
+  idToken: any;
 
   isLoggedIn: boolean = false;
 
@@ -52,6 +53,7 @@ export class LoginPage {
         this.givenName = res.givenName;
         this.userId = res.userId;
         this.imageUrl = res.imageUrl;
+        this.idToken = res.idToken;
 
         this.isLoggedIn = true;
       })
