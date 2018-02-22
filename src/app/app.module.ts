@@ -1,12 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-import { Angular2TokenService } from 'angular2-token-ionic3';
-import { HttpModule } from '@angular/http';
-import { RouterModule } from '@angular/router';
-import { InAppBrowser } from '@ionic-native/in-app-browser';
-
-
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -25,9 +19,7 @@ import { LoginPage } from '../pages/login/login';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
-    HttpModule,
-    RouterModule
+    IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -39,9 +31,7 @@ import { LoginPage } from '../pages/login/login';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    Angular2TokenService,
-    InAppBrowser
+    {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
 export class AppModule {}

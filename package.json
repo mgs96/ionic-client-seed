@@ -20,16 +20,17 @@
     "@angular/http": "5.0.3",
     "@angular/platform-browser": "5.0.3",
     "@angular/platform-browser-dynamic": "5.0.3",
-    "@angular/router": "^5.2.5",
     "@ionic-native/core": "4.4.0",
+    "@ionic-native/google-plus": "^4.5.3",
     "@ionic-native/in-app-browser": "^4.5.3",
     "@ionic-native/splash-screen": "4.4.0",
     "@ionic-native/status-bar": "4.4.0",
     "@ionic/pro": "1.0.19",
     "@ionic/storage": "2.1.3",
-    "angular2-token-ionic3": "0.0.1",
     "cordova-android": "7.0.0",
     "cordova-plugin-device": "^2.0.1",
+    "cordova-plugin-googleplus": "^5.2.1",
+    "cordova-plugin-inappbrowser": "^2.0.2",
     "cordova-plugin-ionic-keyboard": "^2.0.5",
     "cordova-plugin-ionic-webview": "^1.1.16",
     "cordova-plugin-splashscreen": "^5.0.2",
@@ -51,7 +52,11 @@
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-ionic-webview": {},
-      "cordova-plugin-ionic-keyboard": {}
+      "cordova-plugin-ionic-keyboard": {},
+      "cordova-plugin-inappbrowser": {},
+      "cordova-plugin-googleplus": {
+        "REVERSED_CLIENT_ID": "com.googleusercontent.apps.90948732076-vf0ucjj6vfmaerjr7dm0vvjrbl3lk0m8"
+      }
     },
     "platforms": [
       "android"

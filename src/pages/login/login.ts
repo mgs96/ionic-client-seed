@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
-import { Angular2TokenService } from 'angular2-token-ionic3';
+import { ToastController } from 'ionic-angular';
+import { GooglePlus } from '@ionic-native/google-plus';
+
 
 /**
  * Generated class for the LoginPage page.
@@ -9,29 +10,27 @@ import { Angular2TokenService } from 'angular2-token-ionic3';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
+  providers: [ GooglePlus ]
 })
 export class LoginPage {
 
-  output: any = {};
+  displayName: any;
+  email: any;
+  familyName: any;
+  givenName: any;
+  userId: any;
+  imageUrl: any;
 
-  constructor(public navCtrl  : NavController, public toastCtrl : ToastController, 
-              public navParams: NavParams, private _tokenService: Angular2TokenService) {
+  isLoggedIn: boolean = false;
+
+  constructor(public toastCtrl : ToastController, private googlePlus: GooglePlus) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
-  }
-
-  onSubmit() {
-    this.output = {};
-    this._tokenService.signInOAuth('google').subscribe(
-      res =>      this.showToastWithCloseButton(res.name),
-      error =>    console.log(error)
-    );
   }
 
   showToastWithCloseButton(name: string) {
@@ -43,4 +42,35 @@ export class LoginPage {
     toast.present();
   }
 
+  login() {
+    this.googlePlus.login({})
+      .then(res => {
+        console.log(res);
+        this.displayName = res.displayName;
+        this.email = res.email;
+        this.familyName = res.familyName;
+        this.givenName = res.givenName;
+        this.userId = res.userId;
+        this.imageUrl = res.imageUrl;
+
+        this.isLoggedIn = true;
+      })
+      .catch(err => console.error(err));
+  }
+
+  logout() {
+    this.googlePlus.logout()
+      .then(res => {
+        console.log(res);
+        this.displayName = "";
+        this.email = "";
+        this.familyName = "";
+        this.givenName = "";
+        this.userId = "";
+        this.imageUrl = "";
+
+        this.isLoggedIn = false;
+      })
+      .catch(err => console.error(err));
+  }
 }
