@@ -27,7 +27,7 @@ export class LoginPage {
 
   isLoggedIn: boolean = false;
 
-  constructor(public toastCtrl : ToastController, private googlePlus: GooglePlus) {
+  constructor(public toastCtrl: ToastController, private googlePlus: GooglePlus) {
   }
 
   ionViewDidLoad() {
@@ -44,9 +44,10 @@ export class LoginPage {
   }
 
   login() {
-    this.googlePlus.login({})
+
+    this.googlePlus.login({ 'webClientId': '90948732076-13m77u4c9r3o2kdrvoqqo6cqrr4qaueu.apps.googleusercontent.com',
+                            'offline': true })
       .then(res => {
-        this.showToastWithCloseButton(JSON.stringify(res));
         this.displayName = res.displayName;
         this.email = res.email;
         this.familyName = res.familyName;
