@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ToastController } from 'ionic-angular';
 import { GooglePlus } from '@ionic-native/google-plus';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 /**
  * Generated class for the LoginPage page.
@@ -27,7 +27,8 @@ export class LoginPage {
 
   isLoggedIn: boolean = false;
 
-  constructor(public toastCtrl: ToastController, private googlePlus: GooglePlus) {
+  constructor(public toastCtrl: ToastController, private googlePlus: GooglePlus, private http: HttpClient) {
+    
   }
 
   ionViewDidLoad() {
@@ -44,6 +45,14 @@ export class LoginPage {
   }
 
   login() {
+    let headers = new HttpHeaders().set('Access-Control-Allow-Origin', '*');
+    headers.append('Content-Type','application/json');
+    headers.append('Accept', 'application/json');
+    headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE, PUT');
+    //headers = headers.append('Access-Control-Allow-Origin', '*');
+    headers.append('Access-Control-Allow-Headers', "X-Requested-With, Content-Type, Origin, Authorization, Accept, Client-Security-Token, Accept-Encoding");
+    console.log(headers);
+    this.http.post('https://rails-api-seed.herokuapp.com/ionic/google_auth', { 'param1': 'value1' }, { headers }).subscribe( ok => { console.log(ok)}, error => { console.log(error)});
 
     this.googlePlus.login({ 'webClientId': '90948732076-13m77u4c9r3o2kdrvoqqo6cqrr4qaueu.apps.googleusercontent.com',
                             'offline': true })
@@ -57,6 +66,8 @@ export class LoginPage {
         this.idToken = res.idToken;
 
         this.isLoggedIn = true;
+
+        this.http.post('https://rails-api-seed.herokuapp.com/ionic/google_auth', { res });
       })
       .catch(err => this.showToastWithCloseButton(JSON.stringify(err)));
   }
