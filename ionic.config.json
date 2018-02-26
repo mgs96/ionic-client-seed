@@ -4,5 +4,11 @@
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
-  }
+  },
+  "proxies": [
+    {
+      "path": "/ionic/google_auth",
+      "proxyUrl": "https://rails-api-seed.herokuapp.com/ionic/google_auth"
+    }
+  ]
 }
