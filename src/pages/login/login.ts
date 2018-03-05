@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ToastController } from 'ionic-angular';
 import { GooglePlus } from '@ionic-native/google-plus';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 /**
  * Generated class for the LoginPage page.
@@ -25,7 +25,7 @@ export class LoginPage {
   imageUrl: any;
   idToken: any;
 
-  api1 = 'http://localhost:3000/mobile/google_auth';
+  api1 = 'http://192.168.0.11:3000/mobile/google_auth';
   api2 = 'https://rails-api-seed.herokuapp.com/mobile/google_auth';
 
   isLoggedIn: boolean = false;
@@ -47,24 +47,12 @@ export class LoginPage {
     toast.present();
   }
 
-  testPost() {
-    let accessToken = 'aya29.GlxtBa_Fw6qwpfgtaZ4k3hrBffLnIsdO-k4zrZdBpfWM26PQh64tfGrctQQoNCPQdLdckoR7fTI74uvsVqunchZ9kbPqVv2aXQD22HSPTotJg5AfuGsOPRp84JMlYA';
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      })
-    };
-
-    console.log(this.http.post(this.api1, {'id_token': accessToken}, httpOptions).subscribe(ok => console.log(ok), err => console.log(err)));
-  }
-
   login() {
 
-    this.googlePlus.login({ 'webClientId': '895788023800-b70c1q46ae1c3f9dtfi025dkb5cdml9r.apps.googleusercontent.com',
+    this.googlePlus.login({ 'webClientId': '330236784490-oe7knrlk32mkpdha2oim5dk8asdqoler.apps.googleusercontent.com',
                             'offline': true })
       .then(res => {
+        console.log(JSON.stringify(res));
         this.displayName = res.displayName;
         this.email = res.email;
         this.familyName = res.familyName;
@@ -79,10 +67,15 @@ export class LoginPage {
           headers: new HttpHeaders({
             'Access-Control-Allow-Origin': '*'
           }),
+          params: {
+            'id_token': res.idToken,
+            'redirect_uri': ''
+          }
         };
-        console.log(this.http.post(this.api2, { 'id_token': res.idToken } , httpOptions).subscribe(ok => console.log(ok)));
+        this.http.post(this.api1, {} , httpOptions)
+          .subscribe(ok => console.log(JSON.stringify(ok), err => console.log(JSON.stringify(err))));
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(JSON.stringify(err)));
   }
 
   logout() {
@@ -99,7 +92,7 @@ export class LoginPage {
         this.isLoggedIn = false;
 
         console.log(res);
-        // https://rails-api-seed.herokuapp.com/auth/:provider/callback
+        
       })
       .catch(err => console.log(err));
   }
